@@ -14,8 +14,12 @@ class CreatePizzasTable extends Migration
     public function up()
     {
         Schema::create('pizzas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->string('sabor');
+            $table->integer('tamanho');
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -14,8 +14,16 @@ class CreateItemPedidosTable extends Migration
     public function up()
     {
         Schema::create('item_pedidos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('pedido_id');
+            $table->unsignedInteger('pizza_id');
+            $table->integer('quantidade');
+
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('pedido_id')->references('id')->on('pedidos');
+            $table->foreign('pizza_id')->references('id')->on('pizzas');
         });
     }
 

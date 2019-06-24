@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItemPedidoRequest;
 use App\ItemPedido;
+use App\Pedido;
 use Illuminate\Http\Request;
 
 class ItemPedidoController extends Controller
@@ -14,17 +16,7 @@ class ItemPedidoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return ItemPedido::all();
     }
 
     /**
@@ -33,20 +25,12 @@ class ItemPedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemPedidoRequest $request)
     {
-        //
-    }
+        $dataForm = $request->all();
+        $createItemPedido = ItemPedido::create($dataForm);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\ItemPedido  $itemPedido
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ItemPedido $itemPedido)
-    {
-        //
+        return $createItemPedido;
     }
 
     /**
@@ -55,9 +39,12 @@ class ItemPedidoController extends Controller
      * @param  \App\ItemPedido  $itemPedido
      * @return \Illuminate\Http\Response
      */
-    public function edit(ItemPedido $itemPedido)
+    public function edit($id)
     {
-        //
+        $itemPedido = ItemPedido::find($id);
+        $itemPedido->load('Pedido', 'Pizza');
+
+        return $itemPedido;
     }
 
     /**
@@ -67,9 +54,12 @@ class ItemPedidoController extends Controller
      * @param  \App\ItemPedido  $itemPedido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ItemPedido $itemPedido)
+    public function update(ItemPedidoRequest $request, $id)
     {
-        //
+        $dataForm = $request->all();
+        $updateItemPedido = ItemPedido::update($dataForm, $id);
+
+        return $updateItemPedido;
     }
 
     /**
@@ -78,8 +68,8 @@ class ItemPedidoController extends Controller
      * @param  \App\ItemPedido  $itemPedido
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ItemPedido $itemPedido)
+    public function destroy($id)
     {
-        //
+        return ItemPedido::destroy($id);
     }
 }

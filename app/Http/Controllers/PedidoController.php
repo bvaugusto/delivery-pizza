@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PedidoRequest;
 use App\Pedido;
 use Illuminate\Http\Request;
 
@@ -14,17 +15,7 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Pedido::all();
     }
 
     /**
@@ -33,20 +24,11 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PedidoRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Pedido  $pedido
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pedido $pedido)
-    {
-        //
+        $dataForm = $request->all();
+        $createPedido = Pedido::create($dataForm);
+        return $createPedido;
     }
 
     /**
@@ -55,9 +37,12 @@ class PedidoController extends Controller
      * @param  \App\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pedido $pedido)
+    public function edit($id)
     {
-        //
+        $pedido = Pedido::find($id);
+        $pedido->load('itemPedido');
+
+        return $pedido;
     }
 
     /**
@@ -67,9 +52,12 @@ class PedidoController extends Controller
      * @param  \App\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pedido $pedido)
+    public function update(PedidoRequest $request, $id)
     {
-        //
+        $dataForm = $request->all();
+        $updatePedido = Pedido::update($dataForm, $id);
+
+        return $updatePedido;
     }
 
     /**
@@ -78,8 +66,8 @@ class PedidoController extends Controller
      * @param  \App\Pedido  $pedido
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pedido $pedido)
+    public function destroy($id)
     {
-        //
+        return Pedido::destroy($id);
     }
 }

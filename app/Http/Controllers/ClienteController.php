@@ -3,10 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Http\Requests\ClienteFormRequest;
+use App\Repositories\ClienteRepository;
 use Illuminate\Http\Request;
+
 
 class ClienteController extends Controller
 {
+    protected $clienteRepository;
+    /**
+     * ClienteController constructor.
+     */
+    public function __construct()
+    {
+        $this->clienteRepository = new ClienteRepository();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +26,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Cliente::all();
     }
 
     /**
@@ -33,20 +35,12 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClienteFormRequest $request)
     {
-        //
-    }
+        $dataForm = $request->all();
+        $createCliente = $this->clienteRepository->create($dataForm);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cliente $cliente)
-    {
-        //
+        return $createCliente;
     }
 
     /**
@@ -55,9 +49,12 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
-        //
+        $cliente = Cliente::find($id);
+        $cliente->load('enderecoEntrega');
+
+        return $cliente;
     }
 
     /**
@@ -67,9 +64,11 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(ClienteFormRequest $request, $id)
     {
-        //
+        $dataForm = $request->all();
+        $updateCliente = Cliente::update($dataForm, $id);
+        return $updateCliente;
     }
 
     /**
@@ -78,8 +77,8 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        //
+        return Cliente::destroy($id);
     }
 }

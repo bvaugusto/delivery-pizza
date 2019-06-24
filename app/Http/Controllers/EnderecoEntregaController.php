@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EnderecoEntrega;
+use App\Http\Requests\EnderecoEntregaRequest;
 use Illuminate\Http\Request;
 
 class EnderecoEntregaController extends Controller
@@ -14,17 +15,7 @@ class EnderecoEntregaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return EnderecoEntrega::all();
     }
 
     /**
@@ -33,20 +24,12 @@ class EnderecoEntregaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EnderecoEntregaRequest $request)
     {
-        //
-    }
+        $dataForm = $request->all();
+        $createEnderecoEntrega = EnderecoEntrega::create($dataForm);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\EnderecoEntrega  $enderecoEntrega
-     * @return \Illuminate\Http\Response
-     */
-    public function show(EnderecoEntrega $enderecoEntrega)
-    {
-        //
+        return $createEnderecoEntrega;
     }
 
     /**
@@ -55,9 +38,12 @@ class EnderecoEntregaController extends Controller
      * @param  \App\EnderecoEntrega  $enderecoEntrega
      * @return \Illuminate\Http\Response
      */
-    public function edit(EnderecoEntrega $enderecoEntrega)
+    public function edit($id)
     {
-        //
+        $enderecoEntrega = EnderecoEntrega::find($id);
+        $enderecoEntrega->load('cliente');
+
+        return $enderecoEntrega;
     }
 
     /**
@@ -67,9 +53,12 @@ class EnderecoEntregaController extends Controller
      * @param  \App\EnderecoEntrega  $enderecoEntrega
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EnderecoEntrega $enderecoEntrega)
+    public function update(EnderecoEntregaRequest $request, $id)
     {
-        //
+        $dataForm = $request->all();
+        $updateEnderecoEntrega = EnderecoEntrega::update($dataForm, $id);
+
+        return $updateEnderecoEntrega;
     }
 
     /**
@@ -78,8 +67,8 @@ class EnderecoEntregaController extends Controller
      * @param  \App\EnderecoEntrega  $enderecoEntrega
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EnderecoEntrega $enderecoEntrega)
+    public function destroy($id)
     {
-        //
+        return EnderecoEntrega::destroy($id);
     }
 }

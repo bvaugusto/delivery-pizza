@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pizza;
+use App\Http\Requests\PizzaFormRequest;
 use Illuminate\Http\Request;
 
 class PizzaController extends Controller
@@ -14,17 +15,7 @@ class PizzaController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Pizza::all();
     }
 
     /**
@@ -33,20 +24,12 @@ class PizzaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PizzaFormRequest $request)
     {
-        //
-    }
+        $dataForm = $request->all();
+        $createPizza = Pizza::create($dataForm);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Pizza  $pizza
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pizza $pizza)
-    {
-        //
+        return $createPizza;
     }
 
     /**
@@ -55,9 +38,13 @@ class PizzaController extends Controller
      * @param  \App\Pizza  $pizza
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pizza $pizza)
+    public function edit($id)
     {
-        //
+        $pizza = Pizza::find($id);
+        $tamanhoPizza = new Pizza();
+        $tamanhoPizza->getTamanhoPizza();
+
+        return ['pizza' => $pizza, 'tamanhoPizza' => $tamanhoPizza];
     }
 
     /**
@@ -67,9 +54,12 @@ class PizzaController extends Controller
      * @param  \App\Pizza  $pizza
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pizza $pizza)
+    public function update(PizzaFormRequest $request, $id)
     {
-        //
+        $dataForm = $request->all();
+        $updatePizza = Pizza::update($dataForm, $id);
+
+        return $updatePizza;
     }
 
     /**
@@ -78,8 +68,8 @@ class PizzaController extends Controller
      * @param  \App\Pizza  $pizza
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pizza $pizza)
+    public function destroy($id)
     {
-        //
+        return Pizza::destroy($id);
     }
 }

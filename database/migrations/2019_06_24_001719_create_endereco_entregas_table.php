@@ -14,8 +14,19 @@ class CreateEnderecoEntregasTable extends Migration
     public function up()
     {
         Schema::create('endereco_entregas', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('cliente_id');
+            $table->string('cep');
+            $table->string('logradouro');
+            $table->string('numero');
+            $table->string('complemento');
+            $table->string('bairro');
+            $table->string('cidade');
+            
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
 
