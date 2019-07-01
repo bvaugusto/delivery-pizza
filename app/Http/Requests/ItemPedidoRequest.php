@@ -26,7 +26,7 @@ class ItemPedidoRequest extends FormRequest
         return [
             'pedido_id' => 'numeric|required',
             'pizza_id' => 'required',
-            'quantidade' => 'numericrequired'
+            'quantidade' => 'numeric|required'
         ];
     }
 }

@@ -21,7 +21,7 @@ class Pizza extends Model
      *
      * @var array
      */
-    protected $fillable = ['sabor', 'tamanho'];
+    protected $fillable = ['sabor', 'tamanho', 'valor'];
 
     /**
      * The attributes that are appends.
@@ -47,5 +47,10 @@ class Pizza extends Model
         ]);
 
         return $tamanhos;
+    }
+
+    public function itemPedido()
+    {
+        return $this->hasMany(ItemPedido::class);
     }
 }

@@ -21,7 +21,7 @@ class Pedido extends Model
      *
      * @var array
      */
-    protected $fillable = ['cliente_id', 'endereco_entrega_id', 'valor_pedido', 'tamanho', 'status_pedido', 'data_pedido'];
+    protected $fillable = ['cliente_id', 'endereco_entrega_id', 'valor_pedido', 'status_pedido', 'data_pedido'];
 
     /**
      * The attributes that are appends.

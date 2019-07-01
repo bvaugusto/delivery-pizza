@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PedidoRequest;
 use App\Pedido;
+use App\Repositories\PedidoRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
+    private $pedido;
+
+    public function __construct()
+    {
+        $this->pedido = new PedidoRepository();
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -25,7 +25,8 @@ class PizzaFormRequest extends FormRequest
     {
         return [
             'sabor' => 'required',
-            'tamanho' => 'required'
+            'tamanho' => 'required',
+            'valor' => 'numeric|required',
         ];
     }
 }

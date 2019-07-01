@@ -17,6 +17,7 @@ class CreatePizzasTable extends Migration
             $table->increments('id');
             $table->string('sabor');
             $table->integer('tamanho');
+            $table->decimal('valor', 10,2);
 
             $table->timestamps();
             $table->softDeletes();

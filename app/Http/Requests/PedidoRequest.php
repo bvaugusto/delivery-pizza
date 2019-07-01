@@ -27,7 +27,6 @@ class PedidoRequest extends FormRequest
             'cliente_id' => 'numeric|required',
             'endereco_entrega_id' => 'numeric|required',
             'valor_pedido' => 'numeric|required',
-            'tamanho' => 'required'
         ];
     }
 }

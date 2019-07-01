@@ -17,8 +17,7 @@ class CreatePedidosTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('cliente_id');
             $table->unsignedInteger('endereco_entrega_id');
-            $table->decimal('valor_pedido', 10,2);
-            $table->integer('tamanho');
+            $table->decimal('valor_pedido', 10,2)->nullable();
             $table->boolean('status_pedido')->default(false);
             $table->dateTime('data_pedido');
 

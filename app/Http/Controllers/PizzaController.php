@@ -40,11 +40,7 @@ class PizzaController extends Controller
      */
     public function edit($id)
     {
-        $pizza = Pizza::find($id);
-        $tamanhoPizza = new Pizza();
-        $tamanhoPizza->getTamanhoPizza();
-
-        return ['pizza' => $pizza, 'tamanhoPizza' => $tamanhoPizza];
+        return Pizza::find($id);
     }
 
     /**
