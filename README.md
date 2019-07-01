@@ -1,5 +1,12 @@
 #Delivery Pizza
 
+###Bootstrap
+
+cp .env.example .env
+
+composer install && composer update && php artisan key:generate
+
+
 ##Cliente
 
 | GET|HEAD  | api/v1/cliente                                  | cliente.index            |
